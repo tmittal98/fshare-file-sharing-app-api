@@ -5,17 +5,20 @@ const PORT = process.env.PORT || 3000;
 const path = require('path');
 const cors = require('cors');
 
+const connectDB = require('./config/db');
+connectDB();
+
 // Cors 
 const corsOptions = {
     origin: process.env.ALLOWED_CLIENTS.split(',')
 }
-const connectDB = require('./config/db');
-connectDB();
 
 app.use(express.static('public'));
 
 //Middlewares
 app.use(express.json());
+
+app.use(cors(corsOptions));
 
 //Template Engine
 app.set('views', path.join(__dirname, '/views'));
